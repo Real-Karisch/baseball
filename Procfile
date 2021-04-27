@@ -1,0 +1,1 @@
+web: gunicorn site.baseballSite.wsgi --log-file
