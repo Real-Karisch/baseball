@@ -1,1 +1,1 @@
-web: gunicorn site.baseballSite.wsgi --log-file -
+web: gunicorn --chdir ./site baseballSite.wsgi --log-file -
