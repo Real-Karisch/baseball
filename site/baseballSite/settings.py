@@ -78,10 +78,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'small',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': 0000
+        'USER': 'karisch',
+        'PASSWORD': 'cocacola',
+        'HOST': 'localhost',
+        'PORT': 5432
     }
 }
 
@@ -117,3 +117,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+#ADDITIONAL
+
+STATIC_URL = '/static/'

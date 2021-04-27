@@ -10,7 +10,7 @@ from django.db import models
 
 class Actions(models.Model):
     gamepk = models.OneToOneField('Games', models.DO_NOTHING, db_column='gamePk', primary_key=True)  # Field name made lowercase.
-    atbatindex = models.IntegerField(db_column='atBatIndex')  # Field name made lowercase.
+    atbatindex = models.ForeignKey('Atbats', models.DO_NOTHING, db_column='atBatIndex')  # Field name made lowercase.
     actionindex = models.IntegerField(db_column='actionIndex')  # Field name made lowercase.
     eventtype = models.CharField(db_column='eventType', max_length=100, blank=True, null=True)  # Field name made lowercase.
     awayscore = models.IntegerField(db_column='awayScore', blank=True, null=True)  # Field name made lowercase.
@@ -30,7 +30,7 @@ class Actions(models.Model):
 
 
 class Atbats(models.Model):
-    gamepk = models.IntegerField(db_column='gamePk', primary_key=True)  # Field name made lowercase.
+    gamepk = models.OneToOneField('Games', models.DO_NOTHING, db_column='gamePk', primary_key=True)  # Field name made lowercase.
     atbatindex = models.IntegerField(db_column='atBatIndex')  # Field name made lowercase.
     result = models.CharField(max_length=50, blank=True, null=True)
     resulttype = models.CharField(db_column='resultType', max_length=50, blank=True, null=True)  # Field name made lowercase.
@@ -69,7 +69,7 @@ class Divisions(models.Model):
 
 
 class Games(models.Model):
-    gameId = models.IntegerField(primary_key=True)
+    gamepk = models.IntegerField(db_column='gamePk', primary_key=True)  # Field name made lowercase.
     type = models.CharField(max_length=50, blank=True, null=True)
     doubleheader = models.CharField(db_column='doubleHeader', max_length=50, blank=True, null=True)  # Field name made lowercase.
     id = models.CharField(max_length=50, blank=True, null=True)
@@ -97,8 +97,8 @@ class Games(models.Model):
     wind = models.CharField(max_length=50, blank=True, null=True)
     nohitter = models.CharField(db_column='noHitter', max_length=50, blank=True, null=True)  # Field name made lowercase.
     perfectgame = models.CharField(db_column='perfectGame', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    awayid = models.ForeignKey('Teams', models.DO_NOTHING, db_column='awayId', blank=True, null=True, related_name='away')  # Field name made lowercase.
-    homeid = models.ForeignKey('Teams', models.DO_NOTHING, db_column='homeId', blank=True, null=True, related_name='home')  # Field name made lowercase.
+    awayid = models.ForeignKey('Teams', models.DO_NOTHING, db_column='awayId', blank=True, null=True)  # Field name made lowercase.
+    homeid = models.ForeignKey('Teams', models.DO_NOTHING, db_column='homeId', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -119,7 +119,7 @@ class Leagues(models.Model):
 
 
 class Pitches(models.Model):
-    gamepk = models.OneToOneField(Games, models.DO_NOTHING, db_column='gamePk', primary_key=True)  # Field name made lowercase.
+    gamepk = models.OneToOneField(Atbats, models.DO_NOTHING, db_column='gamePk', primary_key=True)  # Field name made lowercase.
     atbatindex = models.IntegerField(db_column='atBatIndex')  # Field name made lowercase.
     pitchindex = models.IntegerField(db_column='pitchIndex')  # Field name made lowercase.
     callcode = models.CharField(db_column='callCode', max_length=50, blank=True, null=True)  # Field name made lowercase.
@@ -209,7 +209,7 @@ class Players(models.Model):
 
 
 class Runners(models.Model):
-    gamepk = models.OneToOneField(Games, models.DO_NOTHING, db_column='gamePk', primary_key=True)  # Field name made lowercase.
+    gamepk = models.OneToOneField(Atbats, models.DO_NOTHING, db_column='gamePk', primary_key=True)  # Field name made lowercase.
     atbatindex = models.IntegerField(db_column='atBatIndex')  # Field name made lowercase.
     playindex = models.IntegerField(db_column='playIndex')  # Field name made lowercase.
     startbase = models.CharField(db_column='startBase', max_length=50, blank=True, null=True)  # Field name made lowercase.
