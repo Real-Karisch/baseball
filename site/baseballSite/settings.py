@@ -26,7 +26,10 @@ SECRET_KEY = '3esxp8uuwr=ds*om)4r)n(!-y2i2ywlmoff3-)vkn4sc$7f&+x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+        'baseball-reports.herokuapp.com',
+        '127.0.0.1',
+    ]
 
 # Application definition
 
