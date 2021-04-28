@@ -30,6 +30,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
         'baseball-reports.herokuapp.com',
         '127.0.0.1',
+        'localhost'
     ]
 
 # Application definition
@@ -78,17 +79,18 @@ WSGI_APPLICATION = 'baseballSite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-#DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+
 """
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd18po67nb1iqm6',
-        'USER': 'wrskvwkkkgzcnd',
-        'PASSWORD': '05d9aba376544dd8301ebff070146888537f1b05fff0fc5f8b28479c7da1c57d',
-        'HOST': 'ec2-54-159-175-113.compute-1.amazonaws.com',
+        'NAME': 'small',
+        'USER': 'karisch',
+        'PASSWORD': 'cocacola',
+        'HOST': 'localhost',
         'PORT': 5432
     }
 }
