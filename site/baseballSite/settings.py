@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -76,18 +77,21 @@ WSGI_APPLICATION = 'baseballSite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+"""
+DATABASES = {}
+DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'small',
-        'USER': 'karisch',
-        'PASSWORD': 'cocacola',
-        'HOST': 'localhost',
+        'NAME': 'd18po67nb1iqm6',
+        'USER': 'wrskvwkkkgzcnd',
+        'PASSWORD': '05d9aba376544dd8301ebff070146888537f1b05fff0fc5f8b28479c7da1c57d',
+        'HOST': 'ec2-54-159-175-113.compute-1.amazonaws.com',
         'PORT': 5432
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
