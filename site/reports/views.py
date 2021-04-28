@@ -2,6 +2,7 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import PlayerSearchForm
+from .models import Players
 
 def search(request):
     form = PlayerSearchForm()
@@ -13,6 +14,10 @@ def report(request):
         form = PlayerSearchForm(request.POST)
         if form.is_valid():
             playerId = int(form.cleaned_data['playerId'])
-            return HttpResponse(str(playerId))
+            try:
+                player = Players.objects.filter(id = playerId)[0]
+            except IndexError:
+                return HttpResponse('Error: Invalid player ID')
+            return render(request, template_name='reports/report.html', context={'player': player})
     
     return redirect('player-search')
