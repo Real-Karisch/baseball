@@ -531,8 +531,8 @@ def populateMajorTablesMaster(dbConnection):
             and psycopg2 libraries.
 
     """
-    startDate = '01/01/2015'
-    endDate = '12/31/2020'
+    startDate = '05/05/2019'
+    endDate = '05/05/2019'
     schema = 'major'
 
     populateDivisionTable(dbConnection)
@@ -564,7 +564,7 @@ def updateMajorTablesMaster(dbConnection, startDate, endDate):
     """
     # Pull pk's for each table of items already in the database
     with dbConnection.cursor() as cur:
-        cur.execute("SELECT pk FROM major.games;")
+        cur.execute("""SELECT "gamePk" FROM major.games;""")
         gamesPulled = [x[0] for x in cur.fetchall()]
         cur.execute("""SELECT "seasonId" FROM major.seasons;""")
         seasonsPulled = [x[0] for x in cur.fetchall()]
@@ -751,7 +751,7 @@ def updateMinorTablesMaster(dbConnection, startDate, endDate):
     """
     # Pull pk's for each table of items already in the database
     with dbConnection.cursor() as cur:
-        cur.execute("SELECT pk FROM minor.games;")
+        cur.execute("""SELECT "gamePk" FROM minor.games;""")
         gamesPulled = [x[0] for x in cur.fetchall()]
         cur.execute("""SELECT "seasonId", "sportId" FROM minor.seasons;""")
         seasonsPulled = cur.fetchall()

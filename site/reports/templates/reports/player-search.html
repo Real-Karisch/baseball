@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Player Search</title>
+</head>
+
+<body>
+    <h1>Player Search</h1>
+    <br>
+    <br>
+    <form action="/report/" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Submit">
+    </form>
+</body>

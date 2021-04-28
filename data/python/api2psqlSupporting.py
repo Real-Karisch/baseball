@@ -332,7 +332,7 @@ venueArgs = [
 commandDictMinor = {
         'games': """
             INSERT INTO {schema}.games(
-                pk,
+                "gamePk",
                 type,
                 "doubleHeader",
                 id,
@@ -458,7 +458,7 @@ commandDictMinor = {
 commandDict = {
         'games': """
             INSERT INTO {schema}.games(
-                pk,
+                "gamePk",
                 type,
                 "doubleHeader",
                 id,
