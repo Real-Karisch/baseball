@@ -25,4 +25,4 @@ def report(request):
 
 def teamsList(request):
     teams = Teams.objects.all()
-    return render(request, 'lists/teams-list.html', {'teams': teams})
+    return render(request, template_name='lists/teams-list.html', context={'teams': teams})
