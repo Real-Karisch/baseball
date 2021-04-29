@@ -21,3 +21,7 @@ def report(request):
             return render(request, template_name='reports/report.html', context={'player': player})
     
     return redirect('player-search')
+
+def teamsList(request):
+    teams = Teams.objects.all()
+    return render(request, 'teams/teams_list.html', {'teams': teams})
