@@ -23,5 +23,5 @@ def report(request):
     return redirect('player-search')
 
 def teamsList(request):
-    teams = Teams.objects.filter(Leagues.abbrev="MLB")
+    teams = Teams.objects.filter(Teams.leagueid="MLB")
     return render(request, template_name='lists/teams-list.html', context={'teams': teams})
