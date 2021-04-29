@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import PlayerSearchForm
 from .models import Players
+from .models import Teams
 
 def search(request):
     form = PlayerSearchForm()
