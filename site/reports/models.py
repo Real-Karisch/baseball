@@ -69,7 +69,7 @@ class Divisions(models.Model):
 
 
 class Games(models.Model):
-    gameId = models.IntegerField(primary_key=True)
+    gamePk = models.IntegerField(primary_key=True)
     type = models.CharField(max_length=50, blank=True, null=True)
     doubleheader = models.CharField(db_column='doubleHeader', max_length=50, blank=True, null=True)  # Field name made lowercase.
     id = models.CharField(max_length=50, blank=True, null=True)
