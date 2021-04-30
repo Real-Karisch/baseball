@@ -83,6 +83,7 @@ WSGI_APPLICATION = 'baseballSite.wsgi.application'
 
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 """
 DATABASES = {
