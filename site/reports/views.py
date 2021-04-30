@@ -2,7 +2,7 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import PlayerSearchForm
-from .models import Players
+from .models import Players, Teams, Leagues
 
 def search(request):
     form = PlayerSearchForm()
@@ -21,3 +21,8 @@ def report(request):
             return render(request, template_name='reports/report.html', context={'player': player})
     
     return redirect('player-search')
+
+def teamsList(request):
+    # teams = Teams.objects.filter(Teams.leagueid="MLB")
+    teams = Teams.objects.all()
+    return render(request, template_name='lists/teams-list.html', context={'teams': teams})
