@@ -7,10 +7,9 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-
 class Actions(models.Model):
-    gamepk = models.OneToOneField('Games', models.DO_NOTHING, db_column='gamePk', primary_key=True)  # Field name made lowercase.
-    atbatindex = models.IntegerField(db_column='atBatIndex')  # Field name made lowercase.
+    gamepk = models.ForeignKey('Games', models.CASCADE, db_column='gamePk')  # Field name made lowercase.
+    atbatindex = models.ForeignKey('Atbats', models.CASCADE, db_column='atBatIndex')  # Field name made lowercase.
     actionindex = models.IntegerField(db_column='actionIndex')  # Field name made lowercase.
     eventtype = models.CharField(db_column='eventType', max_length=100, blank=True, null=True)  # Field name made lowercase.
     awayscore = models.IntegerField(db_column='awayScore', blank=True, null=True)  # Field name made lowercase.
@@ -20,7 +19,7 @@ class Actions(models.Model):
     strikes = models.IntegerField(blank=True, null=True)
     outs = models.IntegerField(blank=True, null=True)
     ispitch = models.CharField(db_column='isPitch', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    playerid = models.ForeignKey('Players', models.DO_NOTHING, db_column='playerId', blank=True, null=True)  # Field name made lowercase.
+    playerid = models.ForeignKey('Players', models.CASCADE, db_column='playerId', blank=True, null=True)  # Field name made lowercase.
     eventdescription = models.CharField(db_column='eventDescription', max_length=1000, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
@@ -30,7 +29,7 @@ class Actions(models.Model):
 
 
 class Atbats(models.Model):
-    gamepk = models.IntegerField(db_column='gamePk', primary_key=True)  # Field name made lowercase.
+    gamepk = models.ForeignKey('Games', models.CASCADE, db_column='gamePk')  # Field name made lowercase.
     atbatindex = models.IntegerField(db_column='atBatIndex')  # Field name made lowercase.
     result = models.CharField(max_length=50, blank=True, null=True)
     resulttype = models.CharField(db_column='resultType', max_length=50, blank=True, null=True)  # Field name made lowercase.
@@ -44,10 +43,10 @@ class Atbats(models.Model):
     hasreview = models.CharField(db_column='hasReview', max_length=50, blank=True, null=True)  # Field name made lowercase.
     hasout = models.CharField(db_column='hasOut', max_length=50, blank=True, null=True)  # Field name made lowercase.
     captivatingindex = models.IntegerField(db_column='captivatingIndex', blank=True, null=True)  # Field name made lowercase.
-    batterid = models.IntegerField(db_column='batterID', blank=True, null=True)  # Field name made lowercase.
+    batterid = models.ForeignKey('Players', models.CASCADE, db_column='batterID', blank=True, null=True, related_name='batters')  # Field name made lowercase.
     batsidecode = models.CharField(db_column='batSideCode', max_length=50, blank=True, null=True)  # Field name made lowercase.
     batsidedesc = models.CharField(db_column='batSideDesc', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    pitcherid = models.IntegerField(db_column='pitcherID', blank=True, null=True)  # Field name made lowercase.
+    pitcherid = models.ForeignKey('Players', models.CASCADE, db_column='pitcherID', blank=True, null=True, related_name='pitchers')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -60,7 +59,7 @@ class Divisions(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     nameshort = models.CharField(db_column='nameShort', max_length=50, blank=True, null=True)  # Field name made lowercase.
     abbrev = models.CharField(max_length=50, blank=True, null=True)
-    leagueid = models.IntegerField(db_column='leagueId', blank=True, null=True)  # Field name made lowercase.
+    leagueid = models.ForeignKey('Leagues', models.CASCADE, db_column='leagueId', blank=True, null=True)  # Field name made lowercase.
     haswildcard = models.CharField(db_column='hasWildcard', max_length=50, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
@@ -76,7 +75,7 @@ class Games(models.Model):
     gamedaytype = models.CharField(db_column='gamedayType', max_length=50, blank=True, null=True)  # Field name made lowercase.
     tiebreaker = models.CharField(db_column='tieBreaker', max_length=50, blank=True, null=True)  # Field name made lowercase.
     calendareventid = models.CharField(db_column='calendarEventID', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    season = models.ForeignKey('Seasons', models.DO_NOTHING, db_column='season', blank=True, null=True)
+    season = models.ForeignKey('Seasons', models.CASCADE, db_column='season', blank=True, null=True)
     seasondisplay = models.IntegerField(db_column='seasonDisplay', blank=True, null=True)  # Field name made lowercase.
     datetime = models.CharField(max_length=50, blank=True, null=True)
     originaldate = models.CharField(db_column='originalDate', max_length=50, blank=True, null=True)  # Field name made lowercase.
@@ -97,8 +96,8 @@ class Games(models.Model):
     wind = models.CharField(max_length=50, blank=True, null=True)
     nohitter = models.CharField(db_column='noHitter', max_length=50, blank=True, null=True)  # Field name made lowercase.
     perfectgame = models.CharField(db_column='perfectGame', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    awayid = models.ForeignKey('Teams', models.DO_NOTHING, db_column='awayId', blank=True, null=True, related_name='away')  # Field name made lowercase.
-    homeid = models.ForeignKey('Teams', models.DO_NOTHING, db_column='homeId', blank=True, null=True, related_name='home')  # Field name made lowercase.
+    awayid = models.ForeignKey('Teams', models.CASCADE, db_column='awayId', blank=True, null=True, related_name='away')  # Field name made lowercase.
+    homeid = models.ForeignKey('Teams', models.CASCADE, db_column='homeId', blank=True, null=True, related_name='home')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -107,7 +106,7 @@ class Games(models.Model):
 
 class Leagues(models.Model):
     id = models.IntegerField(primary_key=True)
-    season = models.ForeignKey('Seasons', models.DO_NOTHING, db_column='season')
+    season = models.ForeignKey('Seasons', models.CASCADE, db_column='season')
     name = models.CharField(max_length=50, blank=True, null=True)
     abbrev = models.CharField(max_length=50, blank=True, null=True)
     nameshort = models.CharField(db_column='nameShort', max_length=50, blank=True, null=True)  # Field name made lowercase.
@@ -119,8 +118,8 @@ class Leagues(models.Model):
 
 
 class Pitches(models.Model):
-    gamepk = models.OneToOneField(Games, models.DO_NOTHING, db_column='gamePk', primary_key=True)  # Field name made lowercase.
-    atbatindex = models.IntegerField(db_column='atBatIndex')  # Field name made lowercase.
+    gamepk = models.ForeignKey('Games', models.CASCADE, db_column='gamePk')  # Field name made lowercase.
+    atbatindex = models.ForeignKey('Atbats', models.CASCADE, db_column='atBatIndex')  # Field name made lowercase.
     pitchindex = models.IntegerField(db_column='pitchIndex')  # Field name made lowercase.
     callcode = models.CharField(db_column='callCode', max_length=50, blank=True, null=True)  # Field name made lowercase.
     calldesc = models.CharField(db_column='callDesc', max_length=50, blank=True, null=True)  # Field name made lowercase.
@@ -209,8 +208,8 @@ class Players(models.Model):
 
 
 class Runners(models.Model):
-    gamepk = models.OneToOneField(Games, models.DO_NOTHING, db_column='gamePk', primary_key=True)  # Field name made lowercase.
-    atbatindex = models.IntegerField(db_column='atBatIndex')  # Field name made lowercase.
+    gamepk = models.ForeignKey('Games', models.CASCADE, db_column='gamePk')  # Field name made lowercase.
+    atbatindex = models.ForeignKey('Atbats', models.CASCADE, db_column='atBatIndex')  # Field name made lowercase.
     playindex = models.IntegerField(db_column='playIndex')  # Field name made lowercase.
     startbase = models.CharField(db_column='startBase', max_length=50, blank=True, null=True)  # Field name made lowercase.
     endbase = models.CharField(db_column='endBase', max_length=50, blank=True, null=True)  # Field name made lowercase.
@@ -218,7 +217,7 @@ class Runners(models.Model):
     outnumber = models.CharField(db_column='outNumber', max_length=50, blank=True, null=True)  # Field name made lowercase.
     eventtype = models.CharField(db_column='eventType', max_length=100, blank=True, null=True)  # Field name made lowercase.
     movementreason = models.CharField(db_column='movementReason', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    runnerid = models.ForeignKey(Players, models.DO_NOTHING, db_column='runnerId', blank=True, null=True)  # Field name made lowercase.
+    runnerid = models.ForeignKey(Players, models.CASCADE, db_column='runnerId', blank=True, null=True)  # Field name made lowercase.
     isscoringevent = models.CharField(db_column='isScoringEvent', max_length=50, blank=True, null=True)  # Field name made lowercase.
     rbi = models.CharField(max_length=50, blank=True, null=True)
     earned = models.CharField(max_length=50, blank=True, null=True)
@@ -262,16 +261,16 @@ class Sports(models.Model):
 class Teams(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50, blank=True, null=True)
-    season = models.ForeignKey(Seasons, models.DO_NOTHING, db_column='season')
-    venueid = models.ForeignKey('Venues', models.DO_NOTHING, db_column='venueID', blank=True, null=True)  # Field name made lowercase.
+    season = models.ForeignKey(Seasons, models.CASCADE, db_column='season')
+    venueid = models.ForeignKey('Venues', models.CASCADE, db_column='venueID', blank=True, null=True)  # Field name made lowercase.
     teamcode = models.CharField(db_column='teamCode', max_length=50, blank=True, null=True)  # Field name made lowercase.
     filecode = models.CharField(db_column='fileCode', max_length=50, blank=True, null=True)  # Field name made lowercase.
     abbrev = models.CharField(max_length=50, blank=True, null=True)
     teamname = models.CharField(db_column='teamName', max_length=50, blank=True, null=True)  # Field name made lowercase.
     locationname = models.CharField(db_column='locationName', max_length=50, blank=True, null=True)  # Field name made lowercase.
     firstyearofplay = models.IntegerField(db_column='firstYearOfPlay', blank=True, null=True)  # Field name made lowercase.
-    leagueid = models.ForeignKey(Leagues, models.DO_NOTHING, db_column='leagueID', blank=True, null=True)  # Field name made lowercase.
-    divisionid = models.ForeignKey(Divisions, models.DO_NOTHING, db_column='divisionID', blank=True, null=True)  # Field name made lowercase.
+    leagueid = models.ForeignKey(Leagues, models.CASCADE, db_column='leagueID', blank=True, null=True)  # Field name made lowercase.
+    divisionid = models.ForeignKey(Divisions, models.CASCADE, db_column='divisionID', blank=True, null=True)  # Field name made lowercase.
     shortname = models.CharField(db_column='shortName', max_length=50, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:

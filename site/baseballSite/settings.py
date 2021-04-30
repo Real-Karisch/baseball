@@ -30,7 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
         'baseball-reports.herokuapp.com',
         '127.0.0.1',
-        'localhost'
+        'localhost',
+        '0.0.0.0:5000',
     ]
 
 # Application definition
@@ -82,6 +83,7 @@ WSGI_APPLICATION = 'baseballSite.wsgi.application'
 
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(conn_max_age=600)
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 """
 DATABASES = {
