@@ -2,7 +2,8 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import PlayerSearchForm
-from .models import Players, Teams, Leagues
+from .models import Players, Teams, Leagues, Atbats
+from .datamgmt import queryset2dict
 
 def search(request):
     form = PlayerSearchForm()
@@ -16,9 +17,17 @@ def report(request):
             playerId = int(form.cleaned_data['playerId'])
             try:
                 player = Players.objects.filter(id = playerId)[0]
+                atbatsQS = Atbats.objects.filter(batter__id = playerId)
+                firstAB = atbatsQS[0]
+                if firstAB.istopinning != 'top':
+                    teamName = Atbats.objects.filter(batter__id=playerId)[0].game.hometeam.name
+                else:
+                    teamName = Atbats.objects.filter(batter__id=playerId)[0].game.awayteam.name
+                atbatsDict = queryset2dict(atbatsQS, ['rbi'])
+                rbiTotal = sum(atbatsDict['rbi'])
             except IndexError:
                 return HttpResponse('Error: Invalid player ID')
-            return render(request, template_name='reports/report.html', context={'player': player})
+            return render(request, template_name='reports/report.html', context={'player': player, 'rbiTotal': rbiTotal, 'team': teamName})
     
     return redirect('player-search')
 
