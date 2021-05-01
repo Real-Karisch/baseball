@@ -31,7 +31,7 @@ ALLOWED_HOSTS = [
         'baseball-reports.herokuapp.com',
         '127.0.0.1',
         'localhost',
-        '0.0.0.0:5000',
+        '0.0.0.0',
     ]
 
 # Application definition
