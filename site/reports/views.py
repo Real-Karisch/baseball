@@ -2,7 +2,7 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import PlayerSearchForm
-from .models import Players, Teams, Leagues, Atbats
+from .models import Players, Teams, Pitches, Atbats
 from .datamgmt import queryset2dict
 
 def search(request):
@@ -18,6 +18,7 @@ def report(request):
             try:
                 player = Players.objects.filter(id = playerId)[0]
                 atbatsQS = Atbats.objects.filter(batter__id = playerId)
+                pitchesQS = Pitches.objects.filter(atbat__batter__id = playerId) 
                 firstAB = atbatsQS[0]
                 if firstAB.istopinning != 'top':
                     teamName = Atbats.objects.filter(batter__id=playerId)[0].game.hometeam.name
