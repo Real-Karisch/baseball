@@ -2,8 +2,10 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import PlayerSearchForm
-from .models import Players, Teams, Pitches, Atbats
+
+from .models import Players, Teams, Pitches, Atbats, Seasons, Leagues
 from .datamgmt import queryset2dict
+
 
 def search(request):
     form = PlayerSearchForm()

@@ -12,9 +12,23 @@
     <br>
     <p>ID: {{player.id}}</p>
     <p>Name: {{player.fullname}}</p>
+
     <p>Team: {{team}}</p>
     <br>
     <p>Total RBIs: {{rbiTotal}}</p>
     <br>
+
+    <table style="border: solid 1px black">
+        <tr>
+          <th>Season</th>
+          <th>RBI</th>
+          <th>Hits</th>
+        </tr>
+        <tr>
+          <td>{{seasons.seasonid}}</td>
+          <td>{{atbats.result}}</td>
+          <td>{{atbats.rbi}}</td>
+        </tr>
+    </table>
 
 </body>
