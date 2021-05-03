@@ -1,10 +1,12 @@
+<!DOCTYPE html>
+
 <h1> All Teams </h1>
+<a href="/">Search again</a>
 
 <ul>
   {% for team in teams %}
     <div>
-      <!-- <li><a href="{% url 'cohort_detail' cohort_id=cohort.id %}">{{ cohort.cohort_name }}</a></li> -->
-      <li><a >{{ teams.name }}, {{ teams.leagueid }}</a></li>
+      <li><a >{{ team.teamname }}, {{ team.leagueid }}</a></li>
     </div>
   {% endfor %}
 </ul>
