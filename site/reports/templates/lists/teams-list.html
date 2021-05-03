@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 
-<h1> All Teams </h1>
-<a href="/">Search again</a>
+<head>
+    <title>List of Teams</title>
+    <a href="/">Search by player ID</a>
+</head>
 
 <ul>
   {% for team in teams %}
     <div>
-      <li><a >{{ team.teamname }}, {{ team.leagueid }}</a></li>
+      <li><a>{{teams.teamname}}, {{teams.leagueid}} {{teams.divisionid}}</a></li>
     </div>
   {% endfor %}
 </ul>
